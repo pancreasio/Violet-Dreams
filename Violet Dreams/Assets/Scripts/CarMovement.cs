@@ -25,12 +25,10 @@ public class CarMovement : MonoBehaviour
     // Update is called once per frame
     public virtual void FixedUpdate()
     {
-        if(newDirection == direction)
-        {
-            if (rb.velocity.magnitude < speed)
-                rb.AddRelativeForce(Vector2.up * acceleration);
-        }
-        else
+            rb.AddRelativeForce(Vector2.up * acceleration);
+            if (rb.velocity.magnitude > speed)
+                rb.velocity = rb.velocity.normalized * speed;
+        if (newDirection != direction)
         {
             if (turning)
             {
