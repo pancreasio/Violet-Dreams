@@ -6,6 +6,7 @@ public class CarMovement : MonoBehaviour
 {
     public float speed;
     public float acceleration;
+    public float rotationMultiplier;
 
     protected Vector3 newDirection;
     protected float newRotationAngle;
@@ -56,7 +57,7 @@ public class CarMovement : MonoBehaviour
         rotationAngle = newRotationAngle;
         while (turning)
         {
-            float yAngle = Mathf.LerpAngle(fromAngle, toAngle, timer);
+            float yAngle = Mathf.LerpAngle(fromAngle, toAngle, timer * rotationMultiplier);
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, yAngle, transform.eulerAngles.z);
 
             timer += Time.deltaTime;
