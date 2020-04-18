@@ -7,26 +7,29 @@ public class CarMovement : MonoBehaviour
     public float speed;
     public float acceleration;
 
-    protected Vector2 newDirection;
+    protected Vector3 newDirection;
     protected float newRotationAngle;
 
     bool turning;
-    Vector2 direction;
+    Vector3 direction;
     float rotationAngle;
-    Rigidbody2D rb;
+    Rigidbody rb;
+    Vector3 prevVelocity;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     public virtual void FixedUpdate()
     {
-        rb.AddRelativeForce(Vector2.up * acceleration);
-        if (rb.velocity.magnitude > speed)
-            rb.velocity = rb.velocity.normalized * speed;
+        rb.AddRelativeForce(Vector3.forward * acceleration);
+
+        //else if (rb.velocity.magnitude > speed)
+        //    rb.velocity = rb.velocity.normalized * speed;
+
         if (newDirection != direction)
         {
             if (turning)
@@ -35,10 +38,12 @@ public class CarMovement : MonoBehaviour
                 direction = newDirection;
                 turning = false;
             }
-            rotationAngle = transform.eulerAngles.z;
+            rotationAngle = transform.eulerAngles.y;
 
             StartCoroutine("Turn");
         }
+
+        prevVelocity = rb.velocity;
     }
 
     IEnumerator Turn()
@@ -51,8 +56,8 @@ public class CarMovement : MonoBehaviour
         rotationAngle = newRotationAngle;
         while (turning)
         {
-            float zAngle = Mathf.LerpAngle(fromAngle, toAngle, timer);
-            transform.eulerAngles = new Vector3(0f, 0f, zAngle);
+            float yAngle = Mathf.LerpAngle(fromAngle, toAngle, timer);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, yAngle, transform.eulerAngles.z);
 
             timer += Time.deltaTime;
 

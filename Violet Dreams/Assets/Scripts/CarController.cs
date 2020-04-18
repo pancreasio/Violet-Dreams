@@ -4,17 +4,28 @@ using UnityEngine;
 
 public class CarController : CarMovement
 {
+    Vector3 cameraOffset;
+
+    public override void Start()
+    {
+        Vector3 cameraPos = Camera.main.transform.position;
+        cameraOffset = transform.position - cameraPos;
+        base.Start();
+    }
+
     void Update()
     {
-        Vector2 movementVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector3 movementVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
 
-        if (movementVector != Vector2.zero && movementVector!= newDirection)
+        if (movementVector != Vector3.zero && movementVector!= newDirection)
         {
             newDirection = movementVector;
-            float angle = Vector2.SignedAngle(transform.up, movementVector);
-            newRotationAngle = transform.eulerAngles.z + angle;
+            float angle = Vector3.SignedAngle(transform.forward, movementVector, Vector3.up);
+            newRotationAngle = transform.eulerAngles.y + angle;
             Debug.Log(angle);
         }
+
+        Camera.main.transform.position = transform.position - cameraOffset;
     }
 
     public override void FixedUpdate()
