@@ -25,6 +25,7 @@ public class CarController : CarMovement
             {
                 float angle = Vector3.SignedAngle(transform.forward, movementVector, Vector3.up);
                 newRotationAngle = transform.eulerAngles.y + angle;
+                newDirection = movementVector;
             }
         }
         else
