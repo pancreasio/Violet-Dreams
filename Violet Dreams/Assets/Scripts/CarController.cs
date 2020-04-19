@@ -23,10 +23,8 @@ public class CarController : CarMovement
             accelerating = true;
             if (movementVector != newDirection)
             {
-                newDirection = movementVector;
                 float angle = Vector3.SignedAngle(transform.forward, movementVector, Vector3.up);
                 newRotationAngle = transform.eulerAngles.y + angle;
-                Debug.Log(angle);
             }
         }
         else
@@ -39,6 +37,28 @@ public class CarController : CarMovement
 
     public override void FixedUpdate()
     {
+        if (!grounded && !onAir)
+        {
+            if (Input.GetKey(KeyCode.Q))
+            {
+                rb.AddRelativeTorque(transform.forward * 75f);
+            }
+            else if (Input.GetKey(KeyCode.E))
+            {
+                rb.AddRelativeTorque(-transform.forward * 75f);
+            }
+        }
+
         base.FixedUpdate();
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        onAir = true;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        onAir = false;
     }
 }

@@ -13,14 +13,14 @@ public class CarMovement : MonoBehaviour
     protected Vector3 newDirection;
     protected float newRotationAngle;
     protected bool accelerating;
+    protected Rigidbody rb;
+    protected bool grounded;
+    protected bool onAir;
 
     bool turning;
-    bool grounded;
     Ray rayToGround;
     Vector3 direction;
     float rotationAngle;
-    Rigidbody rb;
-    Vector3 prevVelocity;
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -33,7 +33,6 @@ public class CarMovement : MonoBehaviour
         rayToGround.origin = transform.position;
         rayToGround.direction = -transform.up;
         grounded = Physics.Raycast(rayToGround,heightFromGround,groundMask);
-        Debug.Log(grounded);
         Debug.DrawRay(rayToGround.origin, rayToGround.direction * heightFromGround, Color.red, 2f);
     }
 
@@ -46,7 +45,7 @@ public class CarMovement : MonoBehaviour
         //else if (rb.velocity.magnitude > speed)
         //    rb.velocity = rb.velocity.normalized * speed;
 
-        if (newDirection != direction)
+        if (rotationAngle != newRotationAngle)
         {
             if (turning)
             {
@@ -58,8 +57,6 @@ public class CarMovement : MonoBehaviour
 
             StartCoroutine("Turn");
         }
-
-        prevVelocity = rb.velocity;
     }
 
     IEnumerator Turn()
@@ -70,17 +67,25 @@ public class CarMovement : MonoBehaviour
         float toAngle = newRotationAngle;
         direction = newDirection;
         rotationAngle = newRotationAngle;
+        Debug.Log(toAngle);
         while (turning && grounded)
         {
-            float yAngle = Mathf.LerpAngle(fromAngle, toAngle, timer * rotationMultiplier);
+            float yAngle = Mathf.LerpAngle(fromAngle, toAngle, timer);
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, yAngle, transform.eulerAngles.z);
 
-            timer += Time.deltaTime;
+            timer += Time.deltaTime * rotationMultiplier * (rb.velocity.magnitude * 0.1f);
 
             if (timer >= 1f)
             {
-                direction = newDirection;
-                rotationAngle = newRotationAngle;
+                if (toAngle < 0)
+                    toAngle += 360;
+
+                if (transform.eulerAngles.y != toAngle)
+                    direction = Vector3.zero;
+                else
+                   direction = newDirection;
+                rotationAngle = transform.eulerAngles.y;
+                newRotationAngle = rotationAngle;
                 turning = false;
             }
 
