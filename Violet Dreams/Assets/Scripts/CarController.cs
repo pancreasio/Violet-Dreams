@@ -13,8 +13,9 @@ public class CarController : CarMovement
         base.Start();
     }
 
-    void Update()
+    public override void Update()
     {
+        base.Update();
         Vector3 movementVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
 
         if (movementVector != Vector3.zero && movementVector!= newDirection)

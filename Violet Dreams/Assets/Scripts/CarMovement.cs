@@ -7,11 +7,15 @@ public class CarMovement : MonoBehaviour
     public float speed;
     public float acceleration;
     public float rotationMultiplier;
+    public float heightFromGround;
+    public LayerMask groundMask;
 
     protected Vector3 newDirection;
     protected float newRotationAngle;
 
     bool turning;
+    bool grounded;
+    Ray rayToGround;
     Vector3 direction;
     float rotationAngle;
     Rigidbody rb;
@@ -23,10 +27,20 @@ public class CarMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    public virtual void Update()
+    {
+        rayToGround.origin = transform.position;
+        rayToGround.direction = -transform.up;
+        grounded = Physics.Raycast(rayToGround,heightFromGround,groundMask);
+        Debug.Log(grounded);
+        Debug.DrawRay(rayToGround.origin, rayToGround.direction * heightFromGround, Color.red, 2f);
+    }
+
     // Update is called once per frame
     public virtual void FixedUpdate()
     {
-        rb.AddRelativeForce(Vector3.forward * acceleration);
+        if(grounded)
+            rb.AddRelativeForce(Vector3.forward * acceleration);
 
         //else if (rb.velocity.magnitude > speed)
         //    rb.velocity = rb.velocity.normalized * speed;
@@ -55,7 +69,7 @@ public class CarMovement : MonoBehaviour
         float toAngle = newRotationAngle;
         direction = newDirection;
         rotationAngle = newRotationAngle;
-        while (turning)
+        while (turning && grounded)
         {
             float yAngle = Mathf.LerpAngle(fromAngle, toAngle, timer * rotationMultiplier);
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, yAngle, transform.eulerAngles.z);
