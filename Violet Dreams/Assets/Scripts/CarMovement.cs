@@ -8,6 +8,7 @@ public class CarMovement : MonoBehaviour
     public float acceleration;
     public float rotationMultiplier;
     public float heightFromGround;
+    public float frontRayDistance;
     public LayerMask groundMask;
 
     protected Vector3 newDirection;
@@ -19,8 +20,10 @@ public class CarMovement : MonoBehaviour
 
     bool turning;
     Ray rayToGround;
+    Ray rayToForward;
     Vector3 direction;
     float rotationAngle;
+    int accelerationMultiplier = 1;
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -32,15 +35,22 @@ public class CarMovement : MonoBehaviour
     {
         rayToGround.origin = transform.position;
         rayToGround.direction = -transform.up;
+        rayToForward.origin = transform.position;
+        rayToForward.direction = transform.forward;
         grounded = Physics.Raycast(rayToGround,heightFromGround,groundMask);
+        if (Physics.Raycast(rayToForward, frontRayDistance, groundMask))
+            accelerationMultiplier = -30;
+        else
+            accelerationMultiplier = 1;
         Debug.DrawRay(rayToGround.origin, rayToGround.direction * heightFromGround, Color.red, 2f);
+        Debug.DrawRay(rayToForward.origin, rayToForward.direction * frontRayDistance, Color.yellow);
     }
 
     // Update is called once per frame
     public virtual void FixedUpdate()
     {
         if(grounded && accelerating)
-            rb.AddRelativeForce(Vector3.forward * acceleration);
+            rb.AddRelativeForce(Vector3.forward * acceleration * accelerationMultiplier);
 
         //else if (rb.velocity.magnitude > speed)
         //    rb.velocity = rb.velocity.normalized * speed;
@@ -67,7 +77,6 @@ public class CarMovement : MonoBehaviour
         float toAngle = newRotationAngle;
         direction = newDirection;
         rotationAngle = newRotationAngle;
-        Debug.Log(toAngle);
         while (turning && grounded)
         {
             float yAngle = Mathf.LerpAngle(fromAngle, toAngle, timer);

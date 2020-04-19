@@ -41,11 +41,11 @@ public class CarController : CarMovement
         {
             if (Input.GetKey(KeyCode.Q))
             {
-                rb.AddRelativeTorque(transform.forward * 75f);
+                rb.AddRelativeTorque(Vector3.forward * 50f);
             }
             else if (Input.GetKey(KeyCode.E))
             {
-                rb.AddRelativeTorque(-transform.forward * 75f);
+                rb.AddRelativeTorque(-Vector3.forward * 50f);
             }
         }
 
