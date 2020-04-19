@@ -79,8 +79,15 @@ public class CarMovement : MonoBehaviour
         rotationAngle = newRotationAngle;
         while (turning && grounded)
         {
-            float yAngle = Mathf.LerpAngle(fromAngle, toAngle, timer);
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, yAngle, transform.eulerAngles.z);
+            Quaternion destRot = Quaternion.Euler(transform.rotation.x, toAngle, transform.rotation.z);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, destRot, Mathf.Clamp(rb.velocity.magnitude * 3, 50f, 100f)* Time.deltaTime);
+
+            Debug.Log(rb.velocity.magnitude);
+
+            if(transform.eulerAngles.y == toAngle)
+            {
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, toAngle, transform.eulerAngles.z);
+            }
 
             timer += Time.deltaTime * rotationMultiplier * (rb.velocity.magnitude * 0.1f);
 
