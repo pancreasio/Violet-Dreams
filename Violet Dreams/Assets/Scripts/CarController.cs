@@ -5,10 +5,11 @@ using UnityEngine;
 public class CarController : CarMovement
 {
     Vector3 cameraOffset;
+    public Camera followCamera;
 
     public override void Start()
     {
-        Vector3 cameraPos = Camera.main.transform.position;
+        Vector3 cameraPos = followCamera.transform.position;
         cameraOffset = transform.position - cameraPos;
         base.Start();
     }
@@ -33,7 +34,7 @@ public class CarController : CarMovement
             accelerating = false;
         }
 
-        Camera.main.transform.position = transform.position - cameraOffset;
+        followCamera.transform.position = transform.position - cameraOffset;
     }
 
     public override void FixedUpdate()
