@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MissileManager : MonoBehaviour
 {
-    GameObject objective;
+    Vector3 objectivePos;
 
     public Camera cam;
 
@@ -24,27 +24,34 @@ public class MissileManager : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0) && !isMissileActive)
         {
-            objective = SetObjective();
-            isMissileActive = true;
-            missile.SetActive(true);
+            if (SetObjective())
+            {
+                isMissileActive = true;
+                missile.SetActive(true);
+            }
         }
     }
 
-    GameObject SetObjective()
+    bool SetObjective()
     {
         RaycastHit hit;
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 100.0f))
         {
-            Debug.Log("You selected the " + hit.transform.name);
-            return hit.transform.gameObject;
+            if (hit.transform.gameObject != null)
+            {
+                Debug.Log("You selected the " + hit.transform.name);
+                objectivePos = hit.point;
+                return true;
+            }
         }
-        else return null;
+        
+        return false;
     }
 
-    GameObject SetMissileTarget()
+    Vector3 SetMissileTarget()
     {
-        return objective;
+        return objectivePos;
     }
 
     void GetMissileDeactivated()

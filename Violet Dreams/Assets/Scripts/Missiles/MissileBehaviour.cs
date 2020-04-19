@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MissileBehaviour : MonoBehaviour
 {
-    public delegate GameObject OnObjectiveSelected();
+    public delegate Vector3 OnObjectiveSelected();
     public static OnObjectiveSelected SelectObjective;
 
     public delegate void OnMissileCollided();
     public static OnMissileCollided DeactiveMissile;
 
-    Transform target;
+    Vector3 target;
 
     public Transform van;
 
@@ -36,12 +36,14 @@ public class MissileBehaviour : MonoBehaviour
         lerpModifier = 0.0f;
         transform.position = van.position;
         transform.rotation = Quaternion.Euler(originalRot);
-        target = SelectObjective().transform;
+        target = SelectObjective();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (pursueTimer == timeBeforePursue)
+            rig.AddForce(transform.forward * 25f, ForceMode.VelocityChange);
         if(pursueTimer > 0f)
             pursueTimer -= Time.deltaTime;
     }
@@ -52,11 +54,19 @@ public class MissileBehaviour : MonoBehaviour
     {
         if (pursueTimer <= 0f)
         {
-            transform.rotation = Quaternion.Lerp(Quaternion.Euler(originalRot),
-                Quaternion.LookRotation((target.transform.position - transform.position).normalized,Vector3.up), lerpModifier);
-            lerpModifier += Time.fixedDeltaTime/rotationSpeed;
+            if (lerpModifier < 1)
+            {
+                transform.rotation = Quaternion.Lerp(Quaternion.Euler(originalRot),
+                    Quaternion.LookRotation((target - transform.position).normalized, Vector3.up), lerpModifier);
+                lerpModifier += Time.fixedDeltaTime * rotationSpeed;
+                if(lerpModifier>=1)
+                {
+                    rig.velocity = Vector3.zero;
+                    rig.freezeRotation = true;
+                    rig.AddForce(transform.forward * speed, ForceMode.VelocityChange);
+                }
+            }
         }
-        rig.velocity = transform.forward * speed * Time.fixedDeltaTime;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -64,6 +74,7 @@ public class MissileBehaviour : MonoBehaviour
         DeactiveMissile();
         pursueTimer = timeBeforePursue;
         rig.velocity = Vector3.zero;
+        rig.angularVelocity = Vector3.zero;
         gameObject.SetActive(false);
     }
 }
