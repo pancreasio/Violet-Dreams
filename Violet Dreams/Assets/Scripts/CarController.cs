@@ -18,12 +18,20 @@ public class CarController : CarMovement
         base.Update();
         Vector3 movementVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
 
-        if (movementVector != Vector3.zero && movementVector!= newDirection)
+        if (movementVector != Vector3.zero)
         {
-            newDirection = movementVector;
-            float angle = Vector3.SignedAngle(transform.forward, movementVector, Vector3.up);
-            newRotationAngle = transform.eulerAngles.y + angle;
-            Debug.Log(angle);
+            accelerating = true;
+            if (movementVector != newDirection)
+            {
+                newDirection = movementVector;
+                float angle = Vector3.SignedAngle(transform.forward, movementVector, Vector3.up);
+                newRotationAngle = transform.eulerAngles.y + angle;
+                Debug.Log(angle);
+            }
+        }
+        else
+        {
+            accelerating = false;
         }
 
         Camera.main.transform.position = transform.position - cameraOffset;

@@ -12,6 +12,7 @@ public class CarMovement : MonoBehaviour
 
     protected Vector3 newDirection;
     protected float newRotationAngle;
+    protected bool accelerating;
 
     bool turning;
     bool grounded;
@@ -39,7 +40,7 @@ public class CarMovement : MonoBehaviour
     // Update is called once per frame
     public virtual void FixedUpdate()
     {
-        if(grounded)
+        if(grounded && accelerating)
             rb.AddRelativeForce(Vector3.forward * acceleration);
 
         //else if (rb.velocity.magnitude > speed)
