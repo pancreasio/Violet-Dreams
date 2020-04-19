@@ -154,8 +154,8 @@ MonoBehaviour:
   van: {fileID: 968273574}
   originalRot: {x: -90, y: 0, z: 0}
   speed: 50
-  rotationSpeed: 2
-  timeBeforePursue: 0.3
+  rotationSpeed: 6
+  timeBeforePursue: 0.1
 --- !u!4 &148860450
 Transform:
   m_ObjectHideFlags: 0
@@ -356,13 +356,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_LocalRotation: {x: -0.09603393, y: -0.70055413, z: -0.09603421, w: 0.70055616}
-  m_LocalPosition: {x: 33.39, y: 4.46, z: 0.38}
+  m_LocalRotation: {x: 0.25622186, y: -0.6590521, z: 0.25622073, w: 0.65905374}
+  m_LocalPosition: {x: 34, y: 37.6, z: 0.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -15.611001, y: -90.00001, z: 0}
+  m_LocalEulerAnglesHint: {x: 42.489002, y: -90.00001, z: 0}
 --- !u!1 &678968684
 GameObject:
   m_ObjectHideFlags: 0
