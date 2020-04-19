@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Arbol
     second: {fileID: 2100000, guid: 53f517fa842f9d34a8d634fc9fc2c6c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ramas
+    second: {fileID: 2100000, guid: 53f517fa842f9d34a8d634fc9fc2c6c7, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
