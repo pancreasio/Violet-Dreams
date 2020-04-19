@@ -1108,7 +1108,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   acceleration: 100
-  rotationMultiplier: 1
+  rotationMultiplier: 3
+  minSpeedToRotate: 3
+  minRotationSpeed: 25
+  maxRotationSpeed: 100
   heightFromGround: 1.7
   frontRayDistance: 2.6
   groundMask:
