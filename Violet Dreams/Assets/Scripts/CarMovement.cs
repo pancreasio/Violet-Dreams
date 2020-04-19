@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class CarMovement : MonoBehaviour
 {
-    public float speed;
+    public float maxSpeed;
     public float acceleration;
+    public float deacceleration;
+    public float brakingSpeed;
     public float rotationMultiplier;
     public float minSpeedToRotate;
     public float minRotationSpeed;
@@ -17,6 +19,7 @@ public class CarMovement : MonoBehaviour
     protected Vector3 newDirection;
     protected float newRotationAngle;
     protected bool accelerating;
+    protected bool braking;
     protected Rigidbody rb;
     protected bool grounded;
     protected bool onAir;
@@ -56,8 +59,18 @@ public class CarMovement : MonoBehaviour
     // Update is called once per frame
     public virtual void FixedUpdate()
     {
-        if(grounded && accelerating)
-            rb.AddRelativeForce(Vector3.forward * acceleration * accelerationMultiplier);
+        if (grounded)
+        {
+            if(accelerating)
+                rb.AddRelativeForce(Vector3.forward * acceleration * accelerationMultiplier);
+            else
+                if (rb.velocity.magnitude > 1f)
+                    rb.AddForce(-rb.velocity * brakingSpeed);
+
+            if (rb.velocity.magnitude > maxSpeed)
+                rb.AddRelativeForce(-Vector3.forward * deacceleration);
+            Debug.Log(rb.velocity.magnitude);
+        }
 
         //else if (rb.velocity.magnitude > speed)
         //    rb.velocity = rb.velocity.normalized * speed;
