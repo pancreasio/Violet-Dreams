@@ -37,13 +37,14 @@ public class MissileBehaviour : MonoBehaviour
         transform.position = van.position;
         transform.rotation = Quaternion.Euler(originalRot);
         target = SelectObjective();
+        pursueTimer = timeBeforePursue;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (pursueTimer == timeBeforePursue)
-            rig.AddForce(transform.forward * 25f, ForceMode.VelocityChange);
+            rig.AddForce(transform.forward *  25f, ForceMode.VelocityChange);
         if(pursueTimer > 0f)
             pursueTimer -= Time.deltaTime;
     }
@@ -72,7 +73,6 @@ public class MissileBehaviour : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         DeactiveMissile();
-        pursueTimer = timeBeforePursue;
         rig.velocity = Vector3.zero;
         rig.angularVelocity = Vector3.zero;
         gameObject.SetActive(false);

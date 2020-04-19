@@ -51,9 +51,9 @@ public class CarMovement : MonoBehaviour
         Debug.DrawRay(rayToGround.origin, rayToGround.direction * heightFromGround, Color.red, 2f);
         Debug.DrawRay(rayToForward.origin, rayToForward.direction * frontRayDistance, Color.yellow);
 
-        Vector3 newRotation = transform.localRotation.eulerAngles;
-        newRotation.z = 0f;
-        transform.localRotation = Quaternion.Euler(newRotation);
+        //Vector3 newRotation = transform.localRotation.eulerAngles;
+        //newRotation.z = 0f;
+        //transform.localRotation = Quaternion.Euler(newRotation);
     }
 
     // Update is called once per frame
@@ -61,15 +61,16 @@ public class CarMovement : MonoBehaviour
     {
         if (grounded)
         {
-            if(accelerating)
-                rb.AddRelativeForce(Vector3.forward * acceleration * accelerationMultiplier);
+            if (accelerating)
+            {
+                rb.AddRelativeForce(Vector3.forward * acceleration * accelerationMultiplier, ForceMode.Force);
+            }
             else
                 if (rb.velocity.magnitude > 1f)
-                    rb.AddForce(-rb.velocity * brakingSpeed);
+                rb.AddForce(-rb.velocity * brakingSpeed);
 
             if (rb.velocity.magnitude > maxSpeed)
                 rb.AddRelativeForce(-Vector3.forward * deacceleration);
-            Debug.Log(rb.velocity.magnitude);
         }
 
         //else if (rb.velocity.magnitude > speed)
@@ -87,6 +88,7 @@ public class CarMovement : MonoBehaviour
 
             StartCoroutine("Turn");
         }
+
     }
 
     IEnumerator Turn()
@@ -106,11 +108,16 @@ public class CarMovement : MonoBehaviour
             if(velocityMagnitude > minSpeedToRotate)
             {
                 velocityCoefficient = Mathf.Clamp(velocityMagnitude * rotationMultiplier, minRotationSpeed, maxRotationSpeed);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, destRot, velocityCoefficient * Time.deltaTime);
             }
 
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, destRot, velocityCoefficient * Time.deltaTime);
-
             if(fromAngle != transform.eulerAngles.y && velocityMagnitude == 0)
+            {
+                rotationAngle = transform.eulerAngles.y;
+                newRotationAngle = rotationAngle;
+                turning = false;
+            }
+            else if(transform.eulerAngles.y >= destRot.eulerAngles.y - 0.5f && transform.eulerAngles.y <= destRot.eulerAngles.y + 0.5f)
             {
                 rotationAngle = transform.eulerAngles.y;
                 newRotationAngle = rotationAngle;
