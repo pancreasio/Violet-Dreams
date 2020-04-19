@@ -638,16 +638,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 477425188}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 9}
+  m_LocalScale: {x: 1.008375, y: 2.1167, z: 1}
   m_Children: []
   m_Father: {fileID: 295028203}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 504.83496, y: 279.52502}
-  m_SizeDelta: {x: 250, y: 125}
+  m_AnchoredPosition: {x: 504.8, y: 283}
+  m_SizeDelta: {x: 277.4, y: 127.16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &477425190
 MonoBehaviour:
@@ -662,12 +662,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 8400000, guid: 8ed9d51ea880b7447b02535a3bdac867, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -1554,7 +1554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RenderShadows: 1
+  m_RenderShadows: 0
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
@@ -1582,8 +1582,8 @@ Camera:
   m_GameObject: {fileID: 1252371036}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 4
-  m_BackGroundColor: {r: 0.03137255, g: 0.027450982, b: 0.023529414, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1597,7 +1597,7 @@ Camera:
     width: 0.82
     height: 1
   near clip plane: 0.3
-  far clip plane: 1667.06
+  far clip plane: 1624.44
   field of view: 99.2471
   orthographic: 1
   orthographic size: 1846.4263
