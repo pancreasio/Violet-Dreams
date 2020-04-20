@@ -2116,11 +2116,11 @@ MonoBehaviour:
   maxSpeed: 50
   acceleration: 200
   deacceleration: 400
-  brakingSpeed: 5
+  brakingSpeed: 10
   rotationMultiplier: 5
-  minSpeedToRotate: 3
-  minRotationSpeed: 75
-  maxRotationSpeed: 100
+  minSpeedToRotate: 2
+  minRotationSpeed: 300
+  maxRotationSpeed: 600
   heightFromGround: 1.7
   frontRayDistance: 2.6
   groundMask:
