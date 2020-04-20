@@ -38,6 +38,14 @@ public class EnemyIA : MonoBehaviour
                 agent.enabled = false;
             }
         }
+        else
+        {
+            bool grounded = Physics.Raycast(transform.position, Vector3.down, 5);
+            if(grounded&&rb.velocity.magnitude < 1)
+            {
+                agent.enabled = true;
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

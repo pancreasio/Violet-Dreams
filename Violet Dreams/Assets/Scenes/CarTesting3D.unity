@@ -292,7 +292,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 557267073}
-  floorTarget: {fileID: 650960243}
 --- !u!195 &159580066
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -338,7 +337,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8296172669263749600}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 6abc96d1cf088f6438813285e06d8ef0, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -2755,7 +2754,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 650960242}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.65, z: 20.04}
+  m_LocalPosition: {x: 0, y: -6.79, z: 20.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5006512735271506931}
