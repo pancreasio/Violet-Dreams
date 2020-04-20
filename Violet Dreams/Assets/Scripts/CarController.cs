@@ -9,6 +9,7 @@ public class CarController : CarMovement
     public MissileManager missileManager;
     public List<Transform> missileSpawn;
     public float lastPositionTime;
+    public GameObject plantHud;
 
     float lastPositionTimer;
     Vector3 lastPosition;
@@ -101,11 +102,13 @@ public class CarController : CarMovement
         {
             other.GetComponent<SeedSpot>().Seed();
             seedsAvailable = false;
+            plantHud.SetActive(false);
         }
 
         if (other.tag == "RechargeStation")
         {
             seedsAvailable = true;
+            plantHud.SetActive(true);
         }
 
         if (other.tag == "Water")
