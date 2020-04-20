@@ -147,7 +147,7 @@ public class CarController : CarMovement
     {
         if (other.tag == "SeedSpot")
         {
-            if (!other.GetComponent<SeedSpot>().seeded)
+            if (seedsAvailable && !other.GetComponent<SeedSpot>().seeded)
             {
                 other.GetComponent<SeedSpot>().Seed();
                 seedsAvailable = false;
