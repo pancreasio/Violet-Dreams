@@ -51,9 +51,9 @@ public class CarMovement : MonoBehaviour
         Debug.DrawRay(rayToGround.origin, rayToGround.direction * heightFromGround, Color.red, 2f);
         Debug.DrawRay(rayToForward.origin, rayToForward.direction * frontRayDistance, Color.yellow);
 
-        //Vector3 newRotation = transform.localRotation.eulerAngles;
-        //newRotation.z = 0f;
-        //transform.localRotation = Quaternion.Euler(newRotation);
+        Vector3 newRotation = transform.localRotation.eulerAngles;
+        newRotation.z = 0f;
+        transform.localRotation = Quaternion.Euler(newRotation);
     }
 
     // Update is called once per frame
