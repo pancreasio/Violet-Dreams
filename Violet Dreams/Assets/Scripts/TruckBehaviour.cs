@@ -9,11 +9,15 @@ public class TruckBehaviour : EnemyIA
     public Transform mTarget;
 
     MissileBehaviour mBeh;
+    public Quaternion originalRot;
+    public Vector3 originalRelativePos;
 
     // Start is called before the first frame update
     public override void Start() 
     {
         mBeh = missile.GetComponent<MissileBehaviour>();
+        originalRot = missile.rotation;
+        originalRelativePos = transform.localPosition;
         base.Start();
     }
 
@@ -21,14 +25,10 @@ public class TruckBehaviour : EnemyIA
     public override void Update()
     {
         mBeh.target = mTarget.position;
-        base.Update();
-    }
-
-    public void FixedUpdate()
-    {
-        if(itsShootingTime)
+        if (itsShootingTime)
         {
             missile.gameObject.SetActive(true);
         }
+        base.Update();
     }
 }

@@ -554,8 +554,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27606515cfd4c64b93b3ed355405e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seeded: 0
   deadZone: {fileID: 0}
   liveZone: {fileID: 0}
+  mapMarker: {fileID: 0}
 --- !u!135 &111313995
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -588,6 +590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 557267073}
+  itsShootingTime: 0
 --- !u!195 &159580066
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1105,8 +1108,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27606515cfd4c64b93b3ed355405e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seeded: 0
   deadZone: {fileID: 0}
   liveZone: {fileID: 0}
+  mapMarker: {fileID: 0}
 --- !u!135 &209462264
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1164,8 +1169,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27606515cfd4c64b93b3ed355405e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seeded: 0
   deadZone: {fileID: 0}
   liveZone: {fileID: 0}
+  mapMarker: {fileID: 0}
 --- !u!135 &216090316
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4456,8 +4463,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27606515cfd4c64b93b3ed355405e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seeded: 0
   deadZone: {fileID: 0}
   liveZone: {fileID: 0}
+  mapMarker: {fileID: 0}
 --- !u!135 &920150811
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5895,8 +5904,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27606515cfd4c64b93b3ed355405e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seeded: 0
   deadZone: {fileID: 0}
   liveZone: {fileID: 0}
+  mapMarker: {fileID: 0}
 --- !u!135 &1149030538
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6586,8 +6597,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27606515cfd4c64b93b3ed355405e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seeded: 0
   deadZone: {fileID: 0}
   liveZone: {fileID: 0}
+  mapMarker: {fileID: 0}
 --- !u!135 &1332263470
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8139,6 +8152,12 @@ MonoBehaviour:
   missileSpawn:
   - {fileID: 2017123809}
   - {fileID: 1968277186}
+  lastPositionTime: 0
+  plantHud: {fileID: 0}
+  emptyPlantHud: {fileID: 0}
+  plantFrames: []
+  maxPlantTime: 0
+  plantAnimator: {fileID: 0}
 --- !u!54 &1682522309
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10009,8 +10028,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 557267073}
+  itsShootingTime: 0
   missile: {fileID: 1835810728}
-  mTarget: {fileID: 1598312656}
+  mTarget: {fileID: 1682522307}
 --- !u!33 &8918391943770976744
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -16,7 +16,6 @@ public class MissileBehaviour : MonoBehaviour
    // public Transform van;
 
     Rigidbody rig;
-    Collider selfCollider;
     
     public Vector3 originalRot;
     
@@ -34,7 +33,6 @@ public class MissileBehaviour : MonoBehaviour
     {
         rig = GetComponent<Rigidbody>();
         pursueTimer = timeBeforePursue;
-        selfCollider = GetComponent<Collider>();
     }
     
     private void OnEnable()
@@ -57,7 +55,8 @@ public class MissileBehaviour : MonoBehaviour
         lifeTimer += Time.deltaTime;
         if (lifeTimer >= maxTime)
         {
-            DeactiveMissile();
+            if(tag != "Enemy")
+                DeactiveMissile();
             rig.velocity = Vector3.zero;
             rig.angularVelocity = Vector3.zero;
             gameObject.SetActive(false);
@@ -93,7 +92,17 @@ public class MissileBehaviour : MonoBehaviour
             explosion.GetComponent<ExplosionPhysicsForce>().SetCurrentTag(tag);
             Destroy(explosion, 2);
 
-            DeactiveMissile();
+            if(tag == "Enemy")
+            {
+                GetComponent<EnemyIA>().itsShootingTime = false;
+                transform.rotation = GetComponent<TruckBehaviour>().originalRot;
+                transform.localPosition = GetComponent<TruckBehaviour>().originalRelativePos;
+            }
+            else
+            {
+                DeactiveMissile();
+            }
+
             rig.velocity = Vector3.zero;
             rig.angularVelocity = Vector3.zero;
             gameObject.SetActive(false);

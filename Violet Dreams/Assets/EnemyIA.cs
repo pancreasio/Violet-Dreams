@@ -12,7 +12,7 @@ public class EnemyIA : MonoBehaviour
 
     bool nearTarget;
 
-    protected bool itsShootingTime = false;
+    public bool itsShootingTime = false;
 
     // Start is called before the first frame update
     public virtual void Start()
