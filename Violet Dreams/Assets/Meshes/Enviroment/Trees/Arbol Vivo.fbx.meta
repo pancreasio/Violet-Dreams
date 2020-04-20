@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: 1c635c2db6b37e947aa29e6b61c5a3e1
+guid: 4a013f4aa65d75b45b7b4ea45dc393a7
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Arbol
+    second: {fileID: 2100000, guid: 28123c544fc3b0a499b9fa1437992e1d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ramas
+    second: {fileID: 2100000, guid: 28123c544fc3b0a499b9fa1437992e1d, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
