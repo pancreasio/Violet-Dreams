@@ -6,6 +6,8 @@ public class CarController : CarMovement
 {
     Vector3 cameraOffset;
     public Camera followCamera;
+    public MissileManager missileManager;
+    public Transform missileSpawn;
 
     public override void Start()
     {
@@ -18,6 +20,11 @@ public class CarController : CarMovement
     {
         base.Update();
         Vector3 movementVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
+
+        if (Input.GetMouseButton(0))
+        {
+            missileManager.ActivateMissile(missileSpawn.position);
+        }
 
         if (movementVector != Vector3.zero)
         {

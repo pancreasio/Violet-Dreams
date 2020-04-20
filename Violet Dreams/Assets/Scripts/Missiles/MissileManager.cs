@@ -20,17 +20,17 @@ public class MissileManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetMouseButtonDown(0) && !isMissileActive)
-        {
-            if (SetObjective())
-            {
-                isMissileActive = true;
-                missile.SetActive(true);
-            }
-        }
-    }
+    //void Update()
+    //{
+    //    if(Input.GetMouseButtonDown(0) && !isMissileActive)
+    //    {
+    //        if (SetObjective())
+    //        {
+    //            isMissileActive = true;
+    //            missile.SetActive(true);
+    //        }
+    //    }
+    //}
 
     bool SetObjective()
     {
@@ -38,6 +38,7 @@ public class MissileManager : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 100.0f))
         {
+            Debug.Log("FFF");
             if (hit.transform.gameObject != null)
             {
                 Debug.Log("You selected the " + hit.transform.name);
@@ -45,7 +46,7 @@ public class MissileManager : MonoBehaviour
                 return true;
             }
         }
-        
+        Debug.Log("VVV");
         return false;
     }
 
@@ -57,5 +58,18 @@ public class MissileManager : MonoBehaviour
     void GetMissileDeactivated()
     {
         isMissileActive = false;
+    }
+
+    public void ActivateMissile(Vector3 startPosition)
+    {
+        if (!isMissileActive)
+        {
+            if (SetObjective())
+            {
+                missile.transform.position = startPosition;
+                isMissileActive = true;
+                missile.SetActive(true);
+            }
+        }
     }
 }

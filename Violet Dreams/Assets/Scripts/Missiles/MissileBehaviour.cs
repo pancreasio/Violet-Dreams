@@ -12,15 +12,18 @@ public class MissileBehaviour : MonoBehaviour
 
     Vector3 target;
 
-    public Transform van;
+   // public Transform van;
 
     Rigidbody rig;
+    Collider selfCollider;
 
     public Vector3 originalRot;
 
     public float speed;
     public float rotationSpeed;
+    public float maxTime = 2f;
 
+    float lifeTimer;
     float pursueTimer;
     public float timeBeforePursue;
 
@@ -29,12 +32,14 @@ public class MissileBehaviour : MonoBehaviour
     {
         rig = GetComponent<Rigidbody>();
         pursueTimer = timeBeforePursue;
+        selfCollider = GetComponent<Collider>();
     }
 
     private void OnEnable()
     {
         lerpModifier = 0.0f;
-        transform.position = van.position;
+        //transform.position = van.position;
+        lifeTimer = 0f;
         transform.rotation = Quaternion.Euler(originalRot);
         target = SelectObjective();
         pursueTimer = timeBeforePursue;
@@ -47,6 +52,12 @@ public class MissileBehaviour : MonoBehaviour
             rig.AddForce(transform.forward *  25f, ForceMode.VelocityChange);
         if(pursueTimer > 0f)
             pursueTimer -= Time.deltaTime;
+
+        lifeTimer += Time.deltaTime;
+        if (lifeTimer >= maxTime)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     float lerpModifier = 0.0f;
@@ -72,6 +83,11 @@ public class MissileBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.tag == "Player")
+        {
+            Physics.IgnoreCollision(collision.transform.GetComponent<Collider>(), selfCollider);
+        }
+
         DeactiveMissile();
         rig.velocity = Vector3.zero;
         rig.angularVelocity = Vector3.zero;
