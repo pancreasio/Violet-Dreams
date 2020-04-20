@@ -36,16 +36,17 @@ public class MissileManager : MonoBehaviour
     {
         RaycastHit hit;
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, 10000.0f))
+        if (Physics.Raycast(ray, out hit, 100.0f))
         {
+            Debug.Log("FFF");
             if (hit.transform.gameObject != null)
             {
                 Debug.Log("You selected the " + hit.transform.name);
                 objectivePos = hit.point;
-                Debug.Log(hit.point);
                 return true;
             }
         }
+        Debug.Log("VVV");
         return false;
     }
 

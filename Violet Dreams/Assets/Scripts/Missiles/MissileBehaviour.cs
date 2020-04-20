@@ -56,9 +56,6 @@ public class MissileBehaviour : MonoBehaviour
         lifeTimer += Time.deltaTime;
         if (lifeTimer >= maxTime)
         {
-            DeactiveMissile();
-            rig.velocity = Vector3.zero;
-            rig.angularVelocity = Vector3.zero;
             gameObject.SetActive(false);
         }
     }
@@ -90,8 +87,6 @@ public class MissileBehaviour : MonoBehaviour
         {
             Physics.IgnoreCollision(collision.transform.GetComponent<Collider>(), selfCollider);
         }
-
-        Debug.Log(collision.GetContact(0).point);
 
         DeactiveMissile();
         rig.velocity = Vector3.zero;
