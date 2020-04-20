@@ -7,7 +7,9 @@ public class CarController : CarMovement
     Vector3 cameraOffset;
     public Camera followCamera;
     public MissileManager missileManager;
-    public Transform missileSpawn;
+    public List<Transform> missileSpawn;
+
+    int currentMissileSpawner = 0;
 
     public override void Start()
     {
@@ -21,9 +23,12 @@ public class CarController : CarMovement
         base.Update();
         Vector3 movementVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0) && !missileManager.isMissileActive)
         {
-            missileManager.ActivateMissile(missileSpawn.position);
+            missileManager.ActivateMissile(missileSpawn[currentMissileSpawner].transform.position);
+            currentMissileSpawner++;
+            currentMissileSpawner = (int)Mathf.PingPong(currentMissileSpawner, missileSpawn.Count - 1);
+            Debug.Log(currentMissileSpawner);
         }
 
         if (movementVector != Vector3.zero)

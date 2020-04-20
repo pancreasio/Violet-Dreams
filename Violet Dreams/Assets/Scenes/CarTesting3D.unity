@@ -3169,6 +3169,16 @@ PrefabInstance:
       propertyPath: van
       value: 
       objectReference: {fileID: 1682522307}
+    - target: {fileID: 5139946847342787479, guid: c920926762f1c5744924037d7c2faa1f,
+        type: 3}
+      propertyPath: timeBeforePursue
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5139946847342787479, guid: c920926762f1c5744924037d7c2faa1f,
+        type: 3}
+      propertyPath: rotationSpeed
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5139946846793710052, guid: c920926762f1c5744924037d7c2faa1f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c920926762f1c5744924037d7c2faa1f, type: 3}
@@ -6906,7 +6916,9 @@ MonoBehaviour:
     m_Bits: 256
   followCamera: {fileID: 519420031}
   missileManager: {fileID: 731220171}
-  missileSpawn: {fileID: 2017123809}
+  missileSpawn:
+  - {fileID: 2017123809}
+  - {fileID: 1968277186}
 --- !u!54 &1682522309
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class MissileManager : MonoBehaviour
 
     public GameObject missile;
 
-    bool isMissileActive = false;
+    public bool isMissileActive = false;
 
     // Start is called before the first frame update
     void Start()
@@ -40,9 +40,7 @@ public class MissileManager : MonoBehaviour
         {
             if (hit.transform.gameObject != null)
             {
-                Debug.Log("You selected the " + hit.transform.name);
                 objectivePos = hit.point;
-                Debug.Log(hit.point);
                 return true;
             }
         }
