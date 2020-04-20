@@ -7,10 +7,9 @@ public class MissileManager : MonoBehaviour
     Vector3 objectivePos;
 
     public Camera cam;
-
     public GameObject missile;
-
     public bool isMissileActive = false;
+    public float missileRaycastDistance;
 
     // Start is called before the first frame update
     void Start()
@@ -19,33 +18,18 @@ public class MissileManager : MonoBehaviour
         MissileBehaviour.DeactiveMissile = GetMissileDeactivated;
     }
 
-    // Update is called once per frame
-    //void Update()
-    //{
-    //    if(Input.GetMouseButtonDown(0) && !isMissileActive)
-    //    {
-    //        if (SetObjective())
-    //        {
-    //            isMissileActive = true;
-    //            missile.SetActive(true);
-    //        }
-    //    }
-    //}
-
     bool SetObjective()
     {
         RaycastHit hit;
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, 100.0f))
+        if (Physics.Raycast(ray, out hit, missileRaycastDistance))
         {
-            Debug.Log("FFF");
             if (hit.transform.gameObject != null)
             {
                 objectivePos = hit.point;
                 return true;
             }
         }
-        Debug.Log("VVV");
         return false;
     }
 

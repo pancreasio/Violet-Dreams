@@ -90,8 +90,6 @@ public class MissileBehaviour : MonoBehaviour
         {
             Physics.IgnoreCollision(collision.transform.GetComponent<Collider>(), selfCollider);
         }
-
-        Debug.Log("zarlanga");
         
         DeactiveMissile();
         rig.velocity = Vector3.zero;

@@ -47,7 +47,7 @@ public class CarController : CarMovement
         {
             accelerating = false;
         }
-        Debug.Log(seedsAvailable);
+        //Debug.Log(seedsAvailable);
         followCamera.transform.position = transform.position - cameraOffset;
     }
 
