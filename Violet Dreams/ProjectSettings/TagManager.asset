@@ -10,6 +10,7 @@ TagManager:
   - PMissile
   - EMissile
   - Enemy
+  - Water
   layers:
   - Default
   - TransparentFX
