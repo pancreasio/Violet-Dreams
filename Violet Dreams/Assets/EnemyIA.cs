@@ -8,18 +8,24 @@ public class EnemyIA : MonoBehaviour
     public Transform target;
     private NavMeshAgent agent;
     Rigidbody rb;
-    bool navmeshStarted = false;
+    bool nearTargetStop = false;
+
+    bool nearTarget;
+
+    protected bool itsShootingTime = false;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
+        nearTarget = Vector3.Distance(target.position, transform.position) < agent.stoppingDistance;
+
         if (agent.enabled)
         {
             agent.SetDestination(target.position);
@@ -37,19 +43,38 @@ public class EnemyIA : MonoBehaviour
                 rb.velocity = agent.velocity;
                 agent.enabled = false;
             }
+
+
+
+            if (nearTarget && agent.enabled)
+            {
+                agent.enabled = false;
+                agent.velocity = Vector3.zero;
+                transform.rotation = Quaternion.identity;
+                rb.velocity = Vector3.zero;
+                nearTargetStop = true;
+                itsShootingTime = true;
+            }
         }
         else
         {
             bool grounded = Physics.Raycast(transform.position, Vector3.down, 5);
-            if(grounded&&rb.velocity.magnitude < 1)
+            if (grounded && rb.velocity.magnitude < 1 && !nearTargetStop)
             {
                 agent.enabled = true;
+            }
+
+            if (!nearTarget && nearTargetStop)
+            {
+                agent.enabled = true;
+                nearTargetStop = false;
             }
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        agent.enabled = true;
+        if (!nearTargetStop && agent)
+            agent.enabled = true;
     }
 }

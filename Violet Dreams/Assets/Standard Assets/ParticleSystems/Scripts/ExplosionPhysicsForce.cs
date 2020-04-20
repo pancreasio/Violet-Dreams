@@ -10,6 +10,7 @@ namespace UnityStandardAssets.Effects
     {
         public float explosionForce = 4;
 
+        public string currentTag = null;
 
         private IEnumerator Start()
         {
@@ -26,18 +27,22 @@ namespace UnityStandardAssets.Effects
             {
                 if (col.attachedRigidbody != null && !rigidbodies.Contains(col.attachedRigidbody))
                 {
-                    if(col.tag != "Player")
+                    if (col.tag != currentTag)
                         rigidbodies.Add(col.attachedRigidbody);
                 }
             }
             foreach (var rb in rigidbodies)
             {
-                if (rb.gameObject.GetComponent<NavMeshAgent>())
-                {
-                    rb.gameObject.GetComponent<NavMeshAgent>().enabled = false;
-                    rb.AddExplosionForce(explosionForce * multiplier, transform.position, r, 1 * multiplier, ForceMode.Impulse);
-                }
+                NavMeshAgent ag = rb.gameObject.GetComponent<NavMeshAgent>();
+                if(ag)
+                    ag.enabled = false;
+                rb.AddExplosionForce(explosionForce*multiplier, transform.position, r, 1*multiplier, ForceMode.Impulse);
             }
+        }
+
+        public void SetCurrentTag(string t)
+        {
+            currentTag = t;
         }
     }
 }

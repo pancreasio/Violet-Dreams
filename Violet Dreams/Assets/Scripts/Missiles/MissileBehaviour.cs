@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Effects;
 
 public class MissileBehaviour : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class MissileBehaviour : MonoBehaviour
     public delegate void OnMissileCollided();
     public static OnMissileCollided DeactiveMissile;
     
-    Vector3 target;
+    public Vector3 target;
 
    // public Transform van;
 
@@ -82,13 +83,14 @@ public class MissileBehaviour : MonoBehaviour
                 }
             }
         }
-    }
-    
+    }       
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag != "Player")
+        if (collision.gameObject.tag != tag)
         {
             GameObject explosion = Instantiate(ExplosionPrefab, collision.GetContact(0).point, Quaternion.identity, null);
+            explosion.GetComponent<ExplosionPhysicsForce>().SetCurrentTag(tag);
             Destroy(explosion, 2);
 
             DeactiveMissile();
@@ -96,6 +98,5 @@ public class MissileBehaviour : MonoBehaviour
             rig.angularVelocity = Vector3.zero;
             gameObject.SetActive(false);
         }
-
     }
 }
