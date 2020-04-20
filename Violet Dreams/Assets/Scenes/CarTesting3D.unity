@@ -3657,6 +3657,11 @@ PrefabInstance:
       propertyPath: rotationSpeed
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5139946847342787479, guid: c920926762f1c5744924037d7c2faa1f,
+        type: 3}
+      propertyPath: ExplosionPrefab
+      value: 
+      objectReference: {fileID: 100010, guid: 031d08f52af1daa4f929b85221519426, type: 3}
     m_RemovedComponents:
     - {fileID: 5139946846793710052, guid: c920926762f1c5744924037d7c2faa1f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c920926762f1c5744924037d7c2faa1f, type: 3}
@@ -9644,7 +9649,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8296172669263749600}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 665.33606, y: 41.316574, z: 1078.2538}
+  m_LocalPosition: {x: 1455, y: 23.63, z: 908}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5580335839623180404}
