@@ -6,6 +6,10 @@ TagManager:
   tags:
   - RechargeStation
   - SeedSpot
+  - Fire
+  - PMissile
+  - EMissile
+  - Enemy
   layers:
   - Default
   - TransparentFX
