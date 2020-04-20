@@ -32,8 +32,11 @@ namespace UnityStandardAssets.Effects
             }
             foreach (var rb in rigidbodies)
             {
-                rb.gameObject.GetComponent<NavMeshAgent>().enabled = false;
-                rb.AddExplosionForce(explosionForce*multiplier, transform.position, r, 1*multiplier, ForceMode.Impulse);
+                if (rb.gameObject.GetComponent<NavMeshAgent>())
+                {
+                    rb.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+                    rb.AddExplosionForce(explosionForce * multiplier, transform.position, r, 1 * multiplier, ForceMode.Impulse);
+                }
             }
         }
     }
