@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SeedSpot : MonoBehaviour
 {
-    bool seeded;
+    public bool seeded;
     public GameObject deadZone;
     public GameObject liveZone;
     public GameObject mapMarker;

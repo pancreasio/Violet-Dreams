@@ -10,11 +10,15 @@ public class CarController : CarMovement
     public List<Transform> missileSpawn;
     public float lastPositionTime;
     public GameObject plantHud;
+    public GameObject emptyPlantHud;
+    public List<GameObject> plantFrames;
+    public float maxPlantTime;
 
     float lastPositionTimer;
+    float plantTimer;
     Vector3 lastPosition;
     Quaternion lastRotation;
-
+    public Animator plantAnimator;
     int currentMissileSpawner = 0;
 
     private bool seedsAvailable;
@@ -26,7 +30,8 @@ public class CarController : CarMovement
         Vector3 cameraPos = followCamera.transform.position;
         cameraOffset = transform.position - cameraPos;
         base.Start();
-        seedsAvailable = false;
+        seedsAvailable = true;
+        plantTimer = maxPlantTime;
     }
 
     public override void Update()
@@ -67,6 +72,48 @@ public class CarController : CarMovement
             lastRotation = transform.rotation;
             lastPositionTimer = 0f;
         }
+
+        plantTimer -= Time.deltaTime;
+
+        if (plantTimer <= 0f)
+        {
+            seedsAvailable = false;
+            DeactivateAnimFrames();
+            emptyPlantHud.SetActive(true);
+
+        }
+
+        if (seedsAvailable)
+        {
+            Debug.Log(plantTimer);
+            if (plantTimer <= 0.3f * maxPlantTime)
+            {
+                DeactivateAnimFrames();
+                plantFrames[0].SetActive(true);
+
+            }
+            else
+            {
+                if (plantTimer <= 0.3f * maxPlantTime)
+                {
+                    DeactivateAnimFrames();
+                    plantFrames[1].SetActive(true);
+                }
+                else
+                {
+                    DeactivateAnimFrames();
+                    plantFrames[2].SetActive(true);
+                }
+            }
+        }
+    }
+
+    private void DeactivateAnimFrames()
+    {
+        foreach (GameObject frame in plantFrames)
+        {
+            frame.SetActive(false);
+        }
     }
 
     public override void FixedUpdate()
@@ -100,15 +147,22 @@ public class CarController : CarMovement
     {
         if (other.tag == "SeedSpot")
         {
-            other.GetComponent<SeedSpot>().Seed();
-            seedsAvailable = false;
-            plantHud.SetActive(false);
+            if (!other.GetComponent<SeedSpot>().seeded)
+            {
+                other.GetComponent<SeedSpot>().Seed();
+                seedsAvailable = false;
+                plantHud.SetActive(false);
+                emptyPlantHud.SetActive(true);
+                DeactivateAnimFrames();
+            }
         }
 
         if (other.tag == "RechargeStation")
         {
             seedsAvailable = true;
+            plantTimer = maxPlantTime;
             plantHud.SetActive(true);
+            emptyPlantHud.SetActive(false);
         }
 
         if (other.tag == "Water")
