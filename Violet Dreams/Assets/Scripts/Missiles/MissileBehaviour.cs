@@ -22,11 +22,10 @@ public class MissileBehaviour : MonoBehaviour
     public float speed;
     public float rotationSpeed;
     public float maxTime = 2f;
-    public GameObject ExplosionPrefab;
-    public float timeBeforePursue;
     
     float lifeTimer;
     float pursueTimer;
+    public float timeBeforePursue;
     
     // Start is called before the first frame update
     void Start()
@@ -39,6 +38,7 @@ public class MissileBehaviour : MonoBehaviour
     private void OnEnable()
     {
         lerpModifier = 0.0f;
+        //transform.position = van.position;
         lifeTimer = 0f;
         transform.rotation = Quaternion.Euler(originalRot);
         target = SelectObjective();
@@ -86,16 +86,14 @@ public class MissileBehaviour : MonoBehaviour
     
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag != "Player")
+        if (collision.gameObject.tag == "Player")
         {
-            GameObject explosion = Instantiate(ExplosionPrefab, collision.GetContact(0).point, Quaternion.identity, null);
-            Destroy(explosion, 2);
-
-            DeactiveMissile();
-            rig.velocity = Vector3.zero;
-            rig.angularVelocity = Vector3.zero;
-            gameObject.SetActive(false);
+            Physics.IgnoreCollision(collision.transform.GetComponent<Collider>(), selfCollider);
         }
-
+        
+        DeactiveMissile();
+        rig.velocity = Vector3.zero;
+        rig.angularVelocity = Vector3.zero;
+        gameObject.SetActive(false);
     }
 }
