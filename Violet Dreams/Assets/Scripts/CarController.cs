@@ -8,12 +8,20 @@ public class CarController : CarMovement
     public Camera followCamera;
     public MissileManager missileManager;
     public List<Transform> missileSpawn;
+    public float lastPositionTime;
+
+    float lastPositionTimer;
+    Vector3 lastPosition;
+    Quaternion lastRotation;
 
     int currentMissileSpawner = 0;
 
     private bool seedsAvailable;
     public override void Start()
     {
+        lastPositionTimer = 0f;
+        lastPosition = transform.position;
+        lastRotation = transform.rotation;
         Vector3 cameraPos = followCamera.transform.position;
         cameraOffset = transform.position - cameraPos;
         base.Start();
@@ -49,6 +57,15 @@ public class CarController : CarMovement
         }
         //Debug.Log(seedsAvailable);
         followCamera.transform.position = transform.position - cameraOffset;
+
+        lastPositionTimer += Time.deltaTime;
+        if (lastPositionTimer > lastPositionTime && grounded)
+        {
+            Debug.Log("Actt" + Time.deltaTime);
+            lastPosition = transform.position;
+            lastRotation = transform.rotation;
+            lastPositionTimer = 0f;
+        }
     }
 
     public override void FixedUpdate()
@@ -89,6 +106,13 @@ public class CarController : CarMovement
         if (other.tag == "RechargeStation")
         {
             seedsAvailable = true;
+        }
+
+        if (other.tag == "Water")
+        {
+            transform.position = lastPosition;
+            transform.rotation = lastRotation;
+            rb.velocity = Vector3.zero;
         }
     }
 }

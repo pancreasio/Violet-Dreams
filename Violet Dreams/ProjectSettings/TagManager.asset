@@ -6,6 +6,7 @@ TagManager:
   tags:
   - RechargeStation
   - SeedSpot
+  - Water
   layers:
   - Default
   - TransparentFX
