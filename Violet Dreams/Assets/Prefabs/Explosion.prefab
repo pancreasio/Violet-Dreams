@@ -23615,6 +23615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionForce: 20
+  currentTag: 
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

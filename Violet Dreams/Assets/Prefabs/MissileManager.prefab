@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   missile: {fileID: 5139946847342787478}
+  isMissileActive: 0
+  missileRaycastDistance: 0
 --- !u!1 &5139946846793710054
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,10 +187,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d59572028fc00304097b113d3196e30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  van: {fileID: 0}
+  target: {x: 0, y: 0, z: 0}
   originalRot: {x: -90, y: 0, z: 0}
   speed: 50
   rotationSpeed: 6
+  maxTime: 2
+  ExplosionPrefab: {fileID: 0}
   timeBeforePursue: 0.1
 --- !u!54 &5139946847342787477
 Rigidbody:
