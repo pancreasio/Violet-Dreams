@@ -9,24 +9,24 @@ public class MissileBehaviour : MonoBehaviour
 
     public delegate void OnMissileCollided();
     public static OnMissileCollided DeactiveMissile;
-
+    
     Vector3 target;
 
    // public Transform van;
 
     Rigidbody rig;
     Collider selfCollider;
-
+    
     public Vector3 originalRot;
-
+    
     public float speed;
     public float rotationSpeed;
     public float maxTime = 2f;
-
+    
     float lifeTimer;
     float pursueTimer;
     public float timeBeforePursue;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +34,7 @@ public class MissileBehaviour : MonoBehaviour
         pursueTimer = timeBeforePursue;
         selfCollider = GetComponent<Collider>();
     }
-
+    
     private void OnEnable()
     {
         lerpModifier = 0.0f;
@@ -44,7 +44,7 @@ public class MissileBehaviour : MonoBehaviour
         target = SelectObjective();
         pursueTimer = timeBeforePursue;
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -52,7 +52,7 @@ public class MissileBehaviour : MonoBehaviour
             rig.AddForce(transform.forward *  25f, ForceMode.VelocityChange);
         if(pursueTimer > 0f)
             pursueTimer -= Time.deltaTime;
-
+    
         lifeTimer += Time.deltaTime;
         if (lifeTimer >= maxTime)
         {
@@ -62,9 +62,9 @@ public class MissileBehaviour : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-
+    
     float lerpModifier = 0.0f;
-
+    
     void FixedUpdate()
     {
         if (pursueTimer <= 0f)
@@ -83,7 +83,7 @@ public class MissileBehaviour : MonoBehaviour
             }
         }
     }
-
+    
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -92,7 +92,7 @@ public class MissileBehaviour : MonoBehaviour
         }
 
         Debug.Log("zarlanga");
-
+        
         DeactiveMissile();
         rig.velocity = Vector3.zero;
         rig.angularVelocity = Vector3.zero;

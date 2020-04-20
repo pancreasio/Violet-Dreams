@@ -11,11 +11,13 @@ public class CarController : CarMovement
 
     int currentMissileSpawner = 0;
 
+    private bool seedsAvailable;
     public override void Start()
     {
         Vector3 cameraPos = followCamera.transform.position;
         cameraOffset = transform.position - cameraPos;
         base.Start();
+        seedsAvailable = false;
     }
 
     public override void Update()
@@ -45,7 +47,7 @@ public class CarController : CarMovement
         {
             accelerating = false;
         }
-
+        Debug.Log(seedsAvailable);
         followCamera.transform.position = transform.position - cameraOffset;
     }
 
@@ -74,5 +76,19 @@ public class CarController : CarMovement
     private void OnCollisionEnter(Collision collision)
     {
         onAir = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "SeedSpot")
+        {
+            other.GetComponent<SeedSpot>().Seed();
+            seedsAvailable = false;
+        }
+
+        if (other.tag == "RechargeStation")
+        {
+            seedsAvailable = true;
+        }
     }
 }
