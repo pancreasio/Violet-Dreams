@@ -6,12 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/IntroScene.unity
+    guid: 196203f27217496429037b403c1f2948
+  - enabled: 1
     path: Assets/Scenes/MenuScene.unity
     guid: 9b9e479096b663e49b6757057d125527
+  - enabled: 1
+    path: Assets/Scenes/CarTesting3D Ruso.unity
+    guid: 3488ea44ff27d9f43b44588cdb1f1473
   - enabled: 1
     path: Assets/Scenes/CreditsScene.unity
     guid: 9d46edfdd3eab5b49b84a72571b61934
   - enabled: 1
-    path: Assets/Scenes/CarTesting3D.unity
-    guid: e8402af1657dfd74d843351e437e526a
+    path: Assets/Scenes/EndingScene.unity
+    guid: 4f6b91c75fc00994aa80233bda05d6e5
   m_configObjects: {}
