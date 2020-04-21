@@ -8,6 +8,7 @@ public class SeedSpot : MonoBehaviour
     public GameObject deadZone;
     public GameObject liveZone;
     public GameObject mapMarker;
+    public GameObject truckArray;
 
     private void Start()
     {
@@ -15,6 +16,7 @@ public class SeedSpot : MonoBehaviour
         deadZone.SetActive(true);
         liveZone.SetActive(false);
         seeded = false;
+        truckArray.SetActive(false);
     }
 
     public void Seed()
@@ -22,6 +24,7 @@ public class SeedSpot : MonoBehaviour
         deadZone.SetActive(false);
         liveZone.SetActive(true);
         mapMarker.SetActive(false);
+        truckArray.SetActive(true);
         seeded = true;
     }
 }
